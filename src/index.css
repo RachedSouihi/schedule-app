@@ -37,6 +37,7 @@ select{
 .container-month-year{
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 #year-selected{
   /*position: absolute;
