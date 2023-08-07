@@ -1,6 +1,5 @@
 import React from "react";
 
-
 export default function HambList(props) {
   const style = {
    
@@ -10,7 +9,7 @@ export default function HambList(props) {
       <div className="hamburger" id="hamburger">
         <img
 
-          src="hamblogo.png"
+          src="./hamblogo.png"
           width="60px"
           height="60px"
           alt="not found"

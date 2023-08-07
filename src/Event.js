@@ -6,6 +6,8 @@ export default function Event(props) {
   const [showEventDesc, setShowEventDesc] = React.useState(false);
   const [showYearList, setShowYearList] = React.useState(false);
   const [showMonthList, setShowMonthList] = React.useState(false);
+  const [yearSelectIndex, setYearSelectIndex] = React.useState(0);
+  const [monthSelectIndex, setMonthSelectIndex] = React.useState(0);
   const [eventDateIndex, setEventDateIndex] = React.useState(-1);
   const [eventDesc, setEventDesc] = React.useState(<></>);
   const [yearSelected, setYearSelected] = React.useState("");
@@ -182,16 +184,19 @@ export default function Event(props) {
     );
     setEventDesc(eDesc);
   };
+  //alert(yearSelectIndex)
+  year.unshift("All year");
   let yearList = year.map((y, index) => (
-    <div key={nanoid()} className="year-value" onClick={() => changeYear(y)} onMouseOver={() => changeBackYear(index)}>
+    <div
+      key={nanoid()}
+      className="year-value"
+      onClick={() => changeYear(y, index)}
+      onMouseOver={() => changeBackYear(index)}
+      on
+    >
       {y}
     </div>
   ));
-  yearList.unshift(
-    <div key={nanoid()} onClick={() => changeYear("")}>
-      All year
-    </div>
-  );
   //alert(yearSelected)
   let months = [
     "January",
@@ -207,17 +212,12 @@ export default function Event(props) {
     "November",
     "December",
   ];
-
-  months = months.map((m) => (
-    <div key={nanoid()} onClick={() => changeMonth(m)}>
+  months.unshift("All month");
+  months = months.map((m, index) => (
+    <div key={nanoid()} onClick={() => changeMonth(m, index)} onMouseOver={() => changeBackMonth(index)} className="month-value">
       {m}
     </div>
   ));
-  months.unshift(
-    <div key={nanoid()} value={""} onClick={() => changeMonth("")}>
-      All months
-    </div>
-  );
   const n = props.data.length;
   let dayList;
   dayList = date.map((d, index) => {
@@ -258,18 +258,29 @@ export default function Event(props) {
   }
 
   //alert(date[0].getDay()+' '+date[2].toLocaleString('default', {month : 'long'}))
-  function changeBackYear(index){
-    document.getElementsByClassName('year-value')[index].style.backgroundColor = 'red'
+  function changeBackYear(index) {
+    const l = document.getElementsByClassName("year-value");
+    for (let i = 0; i < l.length; i++) {
+      l[i].style.backgroundColor =
+        i === index || i === yearSelectIndex ? "red" : "transparent";
+    }
   }
-  
-  function changeYear(y) {
-    setYearSelected(y);
-    document.getElementById("year-selected").innerHTML =
-      y !== "" ? y : "All year";
+  function changeBackMonth(index){
+    const l = document.getElementsByClassName("month-value")
+    for (let i = 0; i < l.length; i++) {
+      l[i].style.backgroundColor =
+        i === index || i === monthSelectIndex ? "red" : "transparent";
+    }
   }
-  function changeMonth(m) {
-    setMonthSelected(m);
-    document.getElementById("month-selected").innerHTML = m !== "" ? m : "All month";
+  function changeYear(y, i) {
+    setYearSelected(y !== "All year" ? y : "");
+    setYearSelectIndex(i);
+    document.getElementById("year-selected").innerHTML = y;
+  }
+  function changeMonth(m, i) {
+    setMonthSelected(m !== 'All month' ? m : "");
+    setMonthSelectIndex(i)
+    document.getElementById("month-selected").innerHTML = m
 
     /*setDate(newDate);
     setEventDate(newDate[0]);*/
@@ -281,7 +292,13 @@ export default function Event(props) {
         You have {n} {n > 1 ? "events" : "event"}
       </h1>
       <div className="year-month">
-        <div style={{}}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <div
             className="container-month-year"
             onClick={() => setShowYearList((prev) => !prev)}
@@ -295,13 +312,26 @@ export default function Event(props) {
               display: showYearList ? "block" : "none",
               color: "black",
               backgroundColor: "#FFFFFF",
-              
+              cursor: "pointer",
+              top: "135px",
+              maxHeight: "200px",
+
+              borderRadius: "10px",
+              zIndex: "1",
+              overflowX: "hidden",
+              overflowY: "auto",
             }}
           >
             {yearList}
           </div>
         </div>
-        <div style={{}}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <div
             className="container-month-year"
             onClick={() => setShowMonthList((prev) => !prev)}
@@ -311,11 +341,9 @@ export default function Event(props) {
           </div>
           <div
             style={{
-              position: "absolute",
               display: showMonthList ? "block" : "none",
-              color: "black",
-              backgroundColor: "#FFFFFF",
             }}
+            className="month-list"
           >
             {months}
           </div>
