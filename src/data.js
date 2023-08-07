@@ -1,0 +1,81 @@
+const data = [
+  {
+  title: "Birthday Party",
+  date: "2023-08-20",
+  start: "18:00 AM",
+  end: "23:00 AM",
+  location: "Park Pavilion",
+  description: "Celebrate a friend's birthday with a party.",
+},
+  {
+    title: "Team Meeting",
+    date: "2023-08-01",
+    start: "09:00 AM",
+    end: "11:30 AM",
+    location: "Conference Room A",
+    description: "Discuss project status and next steps.",
+  },{
+    title: "Team Meeting",
+    date: "2026-04-01",
+    start: "09:00 AM",
+    end: "11:30 AM",
+    location: "Conference Room A",
+    description: "Discuss project status and next steps.",
+  },
+  {
+    title: "Team Meeting",
+    date: "2023-08-01",
+    start: "11:30 AM",
+    end: "12:00 AM",
+    location: "Conference Room A",
+    description: "Discuss project status and next steps.",
+  },
+  {
+    title: "Team Meeting",
+    date: "2023-08-01",
+    start: "12:00 AM",
+    end: "13:00 AM",
+    location: "Conference Room A",
+    description: "Discuss project status and next steps.",
+  },
+  {
+    title: "Client Presentation",
+    date: "2023-08-05",
+    start: "11:30 AM",
+    end: "13:30 AM",
+    location: "Client Office",
+    description: "Present the latest project updates to the client.",
+  },
+  {
+    title: "Client Presentation",
+    date: "2023-01-01",
+    start : '08:30 AM',
+    end : '10:00 AM',
+    location: "Client Office",
+    description: "Present the latest project updates to the client.",
+  },
+  {
+    title: "Workshop: Web Design Trends",
+    date: "2023-08-10",
+    start: "10:00 AM",
+    end: "12:15 AM",
+    location: "Online",
+    description: "Learn about the latest trends in web design.",
+  },
+  {
+    title: "Doctor's Appointment",
+    date: "2023-08-10",
+    start: "08:00 AM",
+    end: "9:45 AM",
+    location: "Health Clinic",
+    description: "Routine health checkup.",
+  },{
+    title : 'Workshop',
+    date : '2024-08-20',
+    start : '10:00 AM',
+    end : '12:00 AM',
+    location : 'Ted University',
+    description : 'Les metiers les plus demandée dans le marché'
+  }
+];
+module.exports = data

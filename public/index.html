@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--style>
+      @import url("https://fonts.googleapis.com/css2?family=Lugrasimo&family=Raleway:ital,wght@1,600&display=swap");
+
+      @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Comfortaa&display=swap");
+
+      @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+      @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
+      @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@1,800&display=swap");
+
+      @import url("https://fonts.googleapis.com/css2?family=Edu+SA+Beginner:wght@700&display=swap");
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        background: url("./scheduleimg.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        font-family: Arial, sans-serif;
+        overflow: auto;
+      }
+      body::-webkit-scrollbar {
+        width: 0;
+      }
+
+      .header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        text-align: right;
+      }
+
+      .hamburger {
+        position: fixed;
+        margin: 15px 18px;
+        z-index: 2;
+        cursor: pointer;
+        border-radius: 50%;
+      }
+      .hamburger:hover,
+      .event:hover,
+      .day:hover {
+        box-shadow: 0.1px 0.1px 10px 1px #ffffff;
+        transition: 0.2s linear;
+      }
+      #hamblogo {
+        transition: 0.5s ease;
+      }
+
+      .nav {
+        background: linear-gradient(45deg, #000850 0%, #000320 100%),
+          radial-gradient(100% 225% at 100% 0%, #ff6928 0%, #000000 100%),
+          linear-gradient(225deg, #ff7a00 0%, #000000 100%),
+          linear-gradient(
+            135deg,
+            #cdffeb 10%,
+            #cdffeb 35%,
+            #009f9d 35%,
+            #009f9d 60%,
+            #07456f 60%,
+            #07456f 67%,
+            #0f0a3c 67%,
+            #0f0a3c 100%
+          );
+        background-blend-mode: screen, overlay, hard-light, normal;
+        box-shadow: 0.5px 0.5px 2px 2px gray;
+        width: 0;
+        position: fixed;
+        height: 100vh;
+        overflow: hidden;
+        z-index: 1;
+        transition: 0.5s;
+      }
+
+      .nav ul {
+        list-style: none;
+        padding: 65px 0;
+        margin: 0;
+      }
+
+      .nav li {
+        text-align: center;
+        color: #fff;
+        cursor: pointer;
+        padding-block: 10px;
+        font-family: "Pacifico", cursive;
+        margin-block: 20px;
+        font-size: 35px;
+        border-radius: 25px;
+      }
+      .nav li:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      .rotateLogo {
+        transform: rotate(540deg);
+        transition: 0.5s ease-in-out;
+      }
+      .event {
+        margin-block: 10px;
+        width: 350px;
+        cursor: pointer;
+        background: #4776e6; /* fallback for old browsers */
+        background: -webkit-linear-gradient(
+          to right,
+          #8e54e9,
+          #4776e6
+        ); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(
+          to right,
+          #8e54e9,
+          #4776e6
+        ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        padding: 2px 5px 15px 5px;
+        text-align: center;
+        /*opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 1s ease;
+        display: flex;
+        flex-direction: column;*/
+
+        box-shadow: 0 4px 10px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+      }
+      .event h2 {
+        font-size: 30px;
+        color: #ffffff;
+        font-family: "Edu SA Beginner", cursive;
+      }
+      .event h2 {
+        margin-bottom: 20px;
+      }
+      .event div span {
+        font-family: "Edu SA Beginner", cursive;
+      }
+      .event_day {
+        display: flex;
+        align-items: center;
+        width: 380px;
+        overflow: auto;
+      }
+      .event_day::-webkit-scrollbar {
+        height: 5px;
+      }
+      .event_day::-webkit-scrollbar-thumb {
+        background-color: #0f0a3c;
+      }
+      .day {
+        font-family: cursive;
+        padding: 3px 20px;
+        white-space: nowrap;
+        margin-inline: 5px;
+        border-radius: 20px;
+
+        cursor: pointer;
+        border: 1px solid darkgray;
+      }
+      h3 {
+        color: darkred;
+      }
+      /*.show-div {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+  margin: 10px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  
+}*/
+
+      .event span {
+        margin-inline: 30px;
+      }
+      .event-desc-style {
+        /*align-items: start;*/
+        position: absolute;
+        z-index: 0;
+        width: 350px;
+        border-radius: 25px;
+        padding: 20px;
+        height: 100vh;
+        background-color: #FFFFFF;
+        box-shadow: 0px 0px 1px 1px lightgray;
+        bottom: 0;
+        opacity: 0;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+      }
+      .showED{
+        opacity: 1;
+        transform: translateY(-100%);
+      }
+      .event_desc {
+        display: grid;
+        grid-template: min-content min-content / repeat(2, 1fr);
+        margin-block: 20px;
+      }
+
+      .event_desc div div {
+        /*border : 1px solid black;*/
+        display: flex;
+        align-items: center;
+      }
+      .event_desc small {
+        color: gray;
+      }
+    </style-->
+    <title>React App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

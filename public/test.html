@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Typing Animation</title>
+  <style>
+    .typing-text{
+        position: relative;
+        
+        font-size: 60px;
+        -webkit-text-stroke: 0.3vw gray;
+        text-transform: uppercase;
+    }
+    .typing-text::before{
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        color: darkred;
+        -webkit-text-stroke: 0vw gray;
+        border-right: 3.5px solid black;
+        overflow: hidden;
+        animation: show 6s ease infinite
+        
+    }
+    @keyframes show{
+        0%{
+            width: 0;
+        }100%{
+            width: 100%;
+        }
+    }
+  </style>
+</head>
+<body>
+  <h1 class="typing-text" data-text = 'Welcome'></h1>
+  <script>
+
+  </script>
+</body>
+</html>

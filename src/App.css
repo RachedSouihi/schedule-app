@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: right;
+}
+
+.hamburger {
+  position: absolute;
+  cursor: pointer;
+}
+#hamblogo {
+  transition: 0.5s ease;
+}
+
+.nav {
+  background-color: whitesmoke;
+  box-shadow: 0.5px 0.5px 2px 2px gray;
+  width: 0px;
+  height: 100vh;
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+.nav ul {
+  list-style: none;
+  padding: 65px 0;
+  margin: 0;
+}
+
+.nav li {
+  text-align: center;
+  color: black;
+  cursor: pointer;
+  padding-block: 10px;
+  margin-block: 20px;
+  font-size: 20px;
+}
+
+.rotateLogo {
+  transform: rotate(540deg);
+  transition: 0.5s ease-in-out;
+}
+.event{
+  width: 150px;
+  height: 85px;
+  background-color: aqua;
+}
+
