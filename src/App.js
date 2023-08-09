@@ -1,21 +1,24 @@
 import React from "react";
-import HambList from "./HambList";
+//import HambList from "./HambList";
 import Event from "./Event";
-import {nanoid} from 'nanoid'
+//import {nanoid} from 'nanoid'
 //import axios from 'axios'
-import './index.css'
+import "./index.css";
 import data from "./data.js";
 
 export default function App() {
-  
-  console.log(data);
   //const [showWelcApp, setShowWelcApp] = React.useState(false)
-  const [showEvent, setShowEvent] = React.useState(false);
-  const [showMeeting, setShowMeeting] = React.useState(false);
+  //const [hambClicked, setHambClicked] = React.useState(false);
+  //const [showEvent, setShowEvent] = React.useState(false);
+  /*const [showMeeting, setShowMeeting] = React.useState(false);
   const [showAppointment, setShowAppointment] = React.useState(false);
   const [optIndex, setOptIndex] = React.useState(-1)
-  console.log(showEvent, showMeeting, showAppointment);
-  function Change(Fn, Fn1, Fn2, index) {
+  
+  console.log(showEvent, showMeeting, showAppointment);*/
+  function compareDate(d1, d2) {
+    return d1 - d2;
+  }
+  /*function Change(Fn, Fn1, Fn2, index) {
     Fn(true);
     Fn1(false);
     Fn2(false);
@@ -35,8 +38,8 @@ export default function App() {
     }
   }
  
-  const [hambClicked, setHambClicked] = React.useState(false);
-  //const [nbreRender, setNbreRender] = React.useState(0)
+  
+  const [nbreRender, setNbreRender] = React.useState(0)
   React.useEffect(() => {
     const nav = document.getElementById("nav");
     const logo = document.getElementById("hamblogo");
@@ -70,39 +73,15 @@ export default function App() {
     key={nanoid()}
       onClick={() =>
         Change(prevElem.Fn, prevElem.Fn1, prevElem.Fn2, index)
-      } /*onMouseLeave={() => resetBg(index)}*/
+    
       onMouseOver={() => optMouseOver(index)}
     >
       {prevElem.type}
     </li>
   ));
-  const event = document.querySelectorAll(".event");
-  let currentIndex = 0;
+  
+*/
 
-  function showNextDiv() {
-    if (currentIndex < event.length) {
-      event[currentIndex].style.opacity = "1";
-      currentIndex++;
-    }
-  }
-
-  const interval = setInterval(showNextDiv, 500); // Adjust the interval as needed
-
-  // Clear the interval when all divs are shown
-  if (currentIndex >= event.length) {
-    clearInterval(interval);
-  }
-
-  return (
-    <div
-      style={{
-        display : 'flex'
-      }}
-    >
-      
-      <HambList tabListElem={tabListElem} setHambClicked={setHambClicked} />
-      <Event showEvent={showEvent} data = {data} />
-      
-    </div>
-  );
+  return <Event data={data} compareDate={compareDate} />;
 }
+//      <HambList tabListElem = {tabListElem} setHambClicked={setHambClicked} onClick = {() => setHambClicked(prev => !prev)} />

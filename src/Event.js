@@ -1,38 +1,52 @@
 import React from "react";
 import { nanoid } from "nanoid";
 import "./index.css";
+//import "./index.css";
 
 export default function Event(props) {
   const [showEventDesc, setShowEventDesc] = React.useState(false);
-  const [showYearList, setShowYearList] = React.useState(false);
-  const [showMonthList, setShowMonthList] = React.useState(false);
+  const [eventPos, setEventPos] = React.useState(0);
+  const [eventNbrShow, setEventNbrShow] = React.useState(0);
+  const [datestring, setDateString] = React.useState("");
   const [yearSelectIndex, setYearSelectIndex] = React.useState(0);
   const [monthSelectIndex, setMonthSelectIndex] = React.useState(0);
-  const [eventDateIndex, setEventDateIndex] = React.useState(-1);
+  const [showYearList, setShowYearList] = React.useState(false);
+  const [showMonthList, setShowMonthList] = React.useState(false);
+  const [eventDateIndex, setEventDateIndex] = React.useState(0);
   const [eventDesc, setEventDesc] = React.useState(<></>);
   const [yearSelected, setYearSelected] = React.useState("");
   const [monthSelected, setMonthSelected] = React.useState("");
   const [date, setDate] = React.useState([]);
+  const [eventElem, setEventElem] = React.useState([]);
+  const [subEventElem, setSubEventElem] = React.useState([]);
   const [eventDate, setEventDate] = React.useState(0);
-
-  const style = {
-    display: props.showEvent ? "flex" : "none",
-    flexDirection: "column",
-    alignItems: "center",
-    position: "relative",
-    // border: "1px solid darkred",
-    heigth: "100%",
-    margin: "150px auto",
-    fontFamily: "'Lobster', cursive",
-  };
-  const eventStyle = {
-    // display: showEventDesc ? "none" : "block",
-    marginTop: "20px",
-  };
-  const hStyle = {
-    textAlign: "center",
-  };
-
+  const [eventNbreDate, setEventNbreDate] = React.useState(0);
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const [windowWidthHeight, setWindowWidthHeight] = React.useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+  React.useEffect(() => {
+    const getWidthHeight = () => {
+      setWindowWidthHeight({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+    window.addEventListener("resize", getWidthHeight);
+    return () => {
+      window.removeEventListener("resize", getWidthHeight);
+    };
+  });
+  //alert(eventNbrShow)
   const clear_event_desc = {
     cursor: "pointer",
     //border: "1px solid gray",
@@ -40,7 +54,31 @@ export default function Event(props) {
     backgroundColor: "white",
     boxShadow: "1px 1px 2px 2px lightgray",
   };
-
+  React.useEffect(() => {
+    document.getElementsByClassName(
+      "event-elem-style"
+    )[0].style.height = `calc(${windowWidthHeight.height}px - 200px)`;
+    /*document.getElementsByClassName(
+      "event-elem-style"
+    )[0].style.width = `calc(${windowWidthHeight.width}px -300px)`;*/
+  }, [windowWidthHeight]);
+  React.useEffect(() => {
+    setEventNbreDate(0);
+  }, [eventDate]);
+  React.useEffect(() => {
+    try {
+      const newDateString =
+        daysOfWeek[eventDate.getDay()] +
+        ", " +
+        eventDate.getDate() +
+        " " +
+        eventDate.toLocaleString("default", { month: "long" });
+      //alert(eventDate.toLocaleString("default", { day: "long" }));
+      setDateString(newDateString);
+    } catch (e) {
+      console.log(e);
+    }
+  }, [eventDate]);
   React.useEffect(() => {
     let newDate = [];
     for (let i = 0; i < props.data.length; i++) {
@@ -64,36 +102,32 @@ export default function Event(props) {
       }
     }
     newDate = [...new Set(newDate)];
-    newDate.sort((d1, d2) => d1.localeCompare(d2));
     newDate = newDate.map((d) => new Date(d));
+    newDate.sort(props.compareDate);
     setDate(newDate);
-    setEventDate(newDate[0]);
+    setEventDateIndex(0);
+    setEventDate(newDate !== [] ? newDate[0] : 1);
   }, [monthSelected, yearSelected, props.data]);
   let year = props.data.map((e) => new Date(e.date).getFullYear());
   year = [...new Set(year)];
   year = year.sort();
-  React.useEffect(() => {
-    setEventDateIndex((prev) => prev + 1);
-  }, []);
+
   React.useEffect(() => {
     try {
       const l = document.getElementsByClassName("day");
       for (let i = 0; i < l.length; i++) {
-        l[i].style.backgroundColor =
-          i === eventDateIndex ? "black" : "transparent";
-        l[i].style.color = i === eventDateIndex ? "white" : "black";
+        l[i].style.backgroundColor = i === eventDateIndex ? "#080c16" : "#ccc";
+        l[i].style.color = i === eventDateIndex ? "#fff" : "#080c16";
         l[i].style.transition = "0.1s ease-in-out";
       }
     } catch (e) {
       console.log(e);
     }
-  }, [eventDateIndex]);
-
+  });
   const Change = (d, index) => {
     setEventDate(d);
     setEventDateIndex(index);
   };
-
   const showEventDescription = (e) => {
     setShowEventDesc(true);
 
@@ -187,7 +221,7 @@ export default function Event(props) {
   //alert(yearSelectIndex)
   year.unshift("All year");
   let yearList = year.map((y, index) => (
-    <div
+    <li
       key={nanoid()}
       className="year-value"
       onClick={() => changeYear(y, index)}
@@ -195,7 +229,7 @@ export default function Event(props) {
       on
     >
       {y}
-    </div>
+    </li>
   ));
   //alert(yearSelected)
   let months = [
@@ -214,11 +248,14 @@ export default function Event(props) {
   ];
   months.unshift("All month");
   months = months.map((m, index) => (
-    <div key={nanoid()} onClick={() => changeMonth(m, index)} onMouseOver={() => changeBackMonth(index)} className="month-value">
+    <li
+      onClick={() => changeMonth(m, index)}
+      onMouseOver={() => changeBackMonth(index)}
+      className="month-value"
+    >
       {m}
-    </div>
+    </li>
   ));
-  const n = props.data.length;
   let dayList;
   dayList = date.map((d, index) => {
     let DATE =
@@ -231,33 +268,47 @@ export default function Event(props) {
     );
   });
   // alert(eventDate);
-  let eventElem;
-  if (eventDate) {
-    eventElem = props.data.map((event) => {
-      const convDateEvent = new Date(event.date);
-      const c1 = convDateEvent.getDate() === eventDate.getDate();
-      const c2 = convDateEvent.getMonth() === eventDate.getMonth();
-      const c3 = convDateEvent.getFullYear() === eventDate.getFullYear();
-      if (c1 && c2 && c3) {
-        return (
-          <div
-            key={nanoid()}
-            className="event"
-            onClick={() => showEventDescription(event)}
-          >
-            <h2 key={nanoid()}>{event.title}</h2>
-            <div key={nanoid()}>
-              <span key={nanoid()}>{event.start}</span>
-              <span key={nanoid()}>{event.end}</span>
+  React.useEffect(() => {
+    try {
+      let newEventElem = props.data.map((event) => {
+        const convDateEvent = new Date(event.date);
+        const c1 = convDateEvent.getDate() === eventDate.getDate();
+        const c2 = convDateEvent.getMonth() === eventDate.getMonth();
+        const c3 = convDateEvent.getFullYear() === eventDate.getFullYear();
+        //alert('bloc executed')
+        if (c1 && c2 && c3) {
+          setEventNbreDate((prev) => prev + 1);
+          return (
+            <div className="event" onClick={() => showEventDescription(event)}>
+              <h2>{event.title}</h2>
+              <div>
+                <span>{event.start}</span>
+                <span>{event.end}</span>
+              </div>
             </div>
-          </div>
-        );
-      }
-      return null;
-    });
-  }
+          );
+        }
 
-  //alert(date[0].getDay()+' '+date[2].toLocaleString('default', {month : 'long'}))
+        return null;
+      });
+      newEventElem = newEventElem.filter((item) => item !== null);
+
+      setEventElem(newEventElem);
+    } catch (e) {
+      console.log(e);
+    }
+  }, [eventDate, props.data]);
+
+  /*try {
+      const h = document.getElementsByClassName("event")[0].clientHeight;
+      const nbr = parseInt((windowHeight - 204) / h);
+      setEventNbrShow(nbr);
+
+    } catch (e) {
+      console.log('err');
+    }
+    alert('hello')*/
+
   function changeBackYear(index) {
     const l = document.getElementsByClassName("year-value");
     for (let i = 0; i < l.length; i++) {
@@ -265,8 +316,8 @@ export default function Event(props) {
         i === index || i === yearSelectIndex ? "red" : "transparent";
     }
   }
-  function changeBackMonth(index){
-    const l = document.getElementsByClassName("month-value")
+  function changeBackMonth(index) {
+    const l = document.getElementsByClassName("month-value");
     for (let i = 0; i < l.length; i++) {
       l[i].style.backgroundColor =
         i === index || i === monthSelectIndex ? "red" : "transparent";
@@ -278,19 +329,16 @@ export default function Event(props) {
     document.getElementById("year-selected").innerHTML = y;
   }
   function changeMonth(m, i) {
-    setMonthSelected(m !== 'All month' ? m : "");
-    setMonthSelectIndex(i)
-    document.getElementById("month-selected").innerHTML = m
+    setMonthSelected(m !== "All month" ? m : "");
+    setMonthSelectIndex(i);
+    document.getElementById("month-selected").innerHTML = m;
 
     /*setDate(newDate);
     setEventDate(newDate[0]);*/
   }
-
+  // alert(eventNbreDate)
   return (
-    <div style={style}>
-      <h1 style={hStyle}>
-        You have {n} {n > 1 ? "events" : "event"}
-      </h1>
+    <div className="style-event-page">
       <div className="year-month">
         <div
           style={{
@@ -306,24 +354,28 @@ export default function Event(props) {
             <span id="year-selected">All year</span>
             <span class="material-icons">expand_more</span>
           </div>
-          <div
+          <ul
             style={{
               position: "absolute",
+              listStyle: "none",
+              fontFamily: "'Kanit', sans-serif",
+              padding: 0,
               display: showYearList ? "block" : "none",
               color: "black",
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "#f5f5f5",
               cursor: "pointer",
-              top: "135px",
+              marginTop: "33px",
               maxHeight: "200px",
-
               borderRadius: "10px",
               zIndex: "1",
+              marginRight: "30px",
               overflowX: "hidden",
               overflowY: "auto",
+              zIndex : '3'
             }}
           >
             {yearList}
-          </div>
+          </ul>
         </div>
         <div
           style={{
@@ -339,18 +391,46 @@ export default function Event(props) {
             <span id="month-selected">All month</span>
             <span class="material-icons">expand_more</span>
           </div>
-          <div
+          <ul
             style={{
               display: showMonthList ? "block" : "none",
             }}
             className="month-list"
           >
             {months}
-          </div>
+          </ul>
         </div>
       </div>
-      <div className="event_day">{dayList}</div>
-      <div style={eventStyle}>{eventElem}</div>
+      <div className="date-string">
+        {eventNbreDate ? datestring : "No date found"}
+      </div>
+      <h1 className="how-many-ev-today">
+        You have {eventNbreDate} {eventNbreDate > 1 ? "events" : "event"}
+      </h1>
+      <div
+        style={{
+          padding: "20px",
+          boxSizing : 'border-box',
+          boxShadow: "0 0 1px 1px gray",
+          //backgroundColor : 'yellow',
+          borderStartStartRadius: "10px",
+          borderStartEndRadius: "10px",
+          width: "100%",
+          
+        }}
+      >
+        <div className="event_day">{dayList}</div>
+        <span style={{ color: "gray" }}>
+          You can see all details about the event, just click on it !
+        </span>
+        <div className="event-elem-style">
+          {eventNbreDate ? (
+            eventElem
+          ) : (
+            <h2>Sorry, any event found in that date!</h2>
+          )}
+        </div>
+      </div>
       {showEventDesc ? eventDesc : <></>}
     </div>
   );

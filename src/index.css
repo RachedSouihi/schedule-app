@@ -3,8 +3,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
 
+@import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Edu+SA+Beginner&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Assistant:wght@200&family=Geologica:wght@200&family=Poppins:wght@300&display=swap");
+  @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@500&display=swap");
 
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
@@ -12,11 +18,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Edu+SA+Beginner:wght@700&display=swap");
 html,
 body {
+  width: 100%;
   height: 100%;
+  user-select: none;
   margin: 0;
   padding: 0;
-  background: url("../public/scheduleimg.jpg");
-  /*background-color: #333;*/
+  /* background: url("../public/scheduleimg.jpg");*/
+  background-color: #eafaf1;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -24,82 +32,162 @@ body {
   font-family: Arial, sans-serif;
   overflow: auto;
 }
+
 body::-webkit-scrollbar {
   width: 0;
 }
-select {
-  background-color: transparent;
-  border: none;
-  outline: none;
+.dat_list {
 }
 .container-month-year {
   display: flex;
   align-items: center;
   cursor: pointer;
-  border: 1px solid black;
-  border-radius: 15px;
-  box-shadow: 1px 1px 3px 3px grey;
-  margin-inline : 10px;
-  padding: 2.5px;
 
+  border-radius: 15px;
 }
 #year-selected {
-  width: 60px;
-  text-align: right;
+  font-family: 'Kanit', sans-serif;
+  font-size: 15px;
 }
 #month-selected {
-  /*position : absolute;
-  margin-inline : -60px*/
-  width: 65px;
-  text-align: center;
+  font-family: 'Kanit', sans-serif;
+  font-size : 15px
 }
 .year-month {
   display: flex;
-
-  align-items: center;
-  margin-block: 20px;
+  width: fit-content;
+  
 }
 .month-list {
   position: absolute;
-  top : 135px;
+  font-family: 'Kanit', sans-serif;
+  padding: 0;
+  list-style: none;
+  background-color: #f5f5f5;
+  margin-top: 32px;
   color: black;
-  background-color: #FFFFFF;
   border-radius: 10px;
   cursor: pointer;
   max-height: 200px;
+  margin-right: 20px;
   overflow-y: auto;
   overflow-x: hidden;
- 
 }
-.month-list::-webkit-scrollbar{
+.month-list::-webkit-scrollbar {
   width: 1px;
+}
 
-}
-.year-value {
-  padding: 5px 20px;
-}
+.year-value,
 .month-value {
-  padding: 5px 16px;
   text-align: center;
+
+  text-decoration: underline;
+  padding: 10px;
+  /*border: 1px solid red;*/
 }
-.header {
+/*.header {
   background-color: #333;
   color: #fff;
   padding: 10px;
   text-align: right;
+}*/
+.how-many-ev-today {
+  font-family: "Geologica", sans-serif;
+  color: #080c16;
+  font-size: 25px;
+  font-weight: bolder;
+  width: fit-content;
+  margin: 0;
 }
-
 .hamburger {
-  position: fixed;
   margin: 15px 18px;
   z-index: 2;
+  width: fit-content;
+  position: fixed;
   cursor: pointer;
   border-radius: 50%;
+}
+
+.date-string {
+  width: fit-content;
+}
+.event {
+  font-family: "Libre Franklin", sans-serif;
+  margin: auto;
+}
+.style-event-page {
+  margin: auto;
+}
+@media (min-width: 480px) {
+  .event-elem-style {
+    margin: auto;
+  }
+}
+@media (max-width: 800px) {
+  .style-event-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .event-elem-style {
+    margin-top: 15px;
+    max-width: 100%;
+    overflow: scroll;
+  }
+  .container-month-year {
+    margin-top: 3px;
+  }
+  .event {
+    margin-block: 8px;
+    padding: 13px;
+  }
+}
+
+@media (min-width: 500px) {
+  .style-event-page {
+    width: 500px;
+  }
+  .event-elem-style {
+    width: 370px;
+  }
+  .event {
+    margin-block: 8px;
+    padding: 13px;
+  }
+}
+
+@media (max-width: 500px) {
+  .year-month,
+  .date-string,
+  .how-many-ev-today {
+    margin-right: auto;
+    
+  }
+}
+@media (min-width: 800px) {
+  .style-event-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 820px;
+
+    margin: 5% auto;
+  }
+  .event-elem-style {
+    margin-top: 15px;
+    max-width: 100%;
+    overflow: scroll;
+  }
+  .year-month {
+    margin-inline: 200px;
+    
+  }
 }
 .hamburger:hover,
 .event:hover,
 .day:hover {
-  box-shadow: 0.1px 0.1px 10px 1px #ffffff;
+  /*box-shadow: 0.1px 0.1px 10px 1px #ffffff;*/
+  transform: scale(0.97);
   transition: 0.2s linear;
 }
 #hamblogo {
@@ -135,7 +223,8 @@ select {
   );
   box-shadow: 0.5px 0.5px 2px 2px gray;
   width: 0;
-  position: fixed;
+  position: absolute;
+  top: 0;
   height: 100vh;
   overflow: hidden;
   z-index: 1;
@@ -166,39 +255,28 @@ select {
   transition: 0.5s ease-in-out;
 }
 .event {
-  margin-block: 10px;
-  width: 350px;
+  /*margin-block: 10px;
+  margin-top: 20px;*/
   cursor: pointer;
-  background: #4776e6; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #8e54e9,
-    #4776e6
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #8e54e9,
-    #4776e6
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-  padding: 2px 5px 15px 5px;
+  /*background-color: #7f53ac;*/
+  background-image: linear-gradient(315deg, #00ad6a 0%, #1fe374 74%);
+  background-color: #1fe374;
   text-align: center;
   /*opacity: 0;
   transform: translateY(20px);
   transition: opacity 1s ease;
   display: flex;
   flex-direction: column;*/
-
-  box-shadow: 0 4px 10px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 1px 1px lightgrey;
   border-radius: 20px;
 }
 .event h2 {
   font-size: 30px;
   color: #ffffff;
-  font-family: "Edu SA Beginner", cursive;
+  font-family: "Libre Franklin", sans-serif;
 }
 .event h2 {
-  margin-bottom: 20px;
+  margin: 0;
 }
 .event div span {
   font-family: "Edu SA Beginner", cursive;
@@ -206,7 +284,7 @@ select {
 .event_day {
   display: flex;
   align-items: center;
-  width: 380px;
+
   overflow: auto;
 }
 .event_day::-webkit-scrollbar {
@@ -216,14 +294,13 @@ select {
   background-color: #0f0a3c;
 }
 .day {
-  font-family: cursive;
+  font-family:Helvetica;
   padding: 3px 20px;
   white-space: nowrap;
   margin-inline: 5px;
   border-radius: 20px;
 
   cursor: pointer;
-  border: 1px solid darkgray;
 }
 h3 {
   color: darkred;
@@ -246,34 +323,15 @@ border-radius: 8px;
   /*align-items: start;*/
   position: absolute;
   z-index: 0;
-  width: auto;
+  margin: auto;
   border-radius: 25px;
   padding: 20px;
-  height: 100vh;
-  top: 0;
-  bottom: -100%;
+  height: fit-content;
+
   background-color: #ffffff;
   box-shadow: 0px 0px 1px 1px lightgray;
+}
 
-  /*transition: transform 0.5s ease, opacity 0.5s ease;*/
-  animation: animEventDesc 1s ease-in-out forwards;
-}
-@keyframes animEventDesc {
-  0% {
-    bottom: -100%;
-  }
-  100% {
-    bottom: 0;
-  }
-}
-@keyframes expandHeight {
-  0% {
-    height: 0;
-  }
-  100% {
-    height: 100%;
-  }
-}
 .event_desc {
   display: grid;
   grid-template: min-content min-content / repeat(2, 1fr);

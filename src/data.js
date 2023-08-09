@@ -21,6 +21,34 @@ const data = [
     end: "11:30 AM",
     location: "Conference Room A",
     description: "Discuss project status and next steps.",
+  },{
+    title: "Team Meeting",
+    date: "2023-08-01",
+    start: "09:00 AM",
+    end: "11:30 AM",
+    location: "Conference Room A",
+    description: "Discuss project status and next steps.",
+  },{
+    title: "Team Meeting",
+    date: "2023-08-01",
+    start: "09:00 AM",
+    end: "11:30 AM",
+    location: "Conference Room A",
+    description: "Discuss project status and next steps.",
+  },{
+    title: "Team Meeting",
+    date: "2023-08-01",
+    start: "09:00 AM",
+    end: "11:30 AM",
+    location: "Conference Room A",
+    description: "Discuss project status and next steps.",
+  },{
+    title: "Team Meeting",
+    date: "2023-08-01",
+    start: "09:00 AM",
+    end: "11:30 AM",
+    location: "Conference Room A",
+    description: "Discuss project status and next steps.",
   },
   {
     title: "Team Meeting",
@@ -61,6 +89,13 @@ const data = [
     end: "12:15 AM",
     location: "Online",
     description: "Learn about the latest trends in web design.",
+  },{
+    title : "Workshop, Web development",
+    date : '2024-1-2',
+    start : '09:00PM',
+    end : '12:00PM',
+    location : 'Ted university',
+    description : "What's front end and back end development ?"
   },
   {
     title: "Doctor's Appointment",
@@ -76,6 +111,35 @@ const data = [
     end : '12:00 AM',
     location : 'Ted University',
     description : 'Les metiers les plus demandée dans le marché'
+  },{
+    title: "Team Meeting",
+    date: "2023-08-01",
+    start: "09:00 AM",
+    end: "11:30 AM",
+    location: "Conference Room A",
+    description: "Discuss project status and next steps.",
+  },{
+    title: "Team Meeting",
+    date: "2023-08-01",
+    start: "09:00 AM",
+    end: "11:30 AM",
+    location: "Conference Room A",
+    description: "Discuss project status and next steps.",
+  },{
+    title: "Team Meeting",
+    date: "2023-08-01",
+    start: "09:00 AM",
+    end: "11:30 AM",
+    location: "Conference Room A",
+    description: "Discuss project status and next steps.",
+  },
+  {title: "Workshop: Web Design Trends",
+  date: "2023-01-01",
+  start: "10:00 AM",
+  end: "12:15 AM",
+  location: "Ted university",
+  description: "Learn about the latest trends in web design.",
   }
+  
 ];
 module.exports = data
