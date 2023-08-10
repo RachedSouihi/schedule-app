@@ -222,15 +222,21 @@ export default function Event(props) {
   year.unshift("All year");
   let yearList = year.map((y, index) => (
     <li
-      key={nanoid()}
       className="year-value"
-      onClick={() => changeYear(y, index)}
+      onClick={() => HideYearList(y, index)}
       onMouseOver={() => changeBackYear(index)}
-      on
     >
       {y}
     </li>
   ));
+  function HideYearList(y, index) {
+    changeYear(y, index);
+    setShowYearList(false);
+    const l = document.getElementsByClassName("year-value");
+    for (let i = 0; i < l.length; i++) {
+      l[i].style.backgroundColor = i === index ? "#1fe374" : "transparent";
+    }
+  }
   //alert(yearSelected)
   let months = [
     "January",
@@ -249,13 +255,21 @@ export default function Event(props) {
   months.unshift("All month");
   months = months.map((m, index) => (
     <li
-      onClick={() => changeMonth(m, index)}
+      onClick={() => HideMonthList(m, index)}
       onMouseOver={() => changeBackMonth(index)}
       className="month-value"
     >
       {m}
     </li>
   ));
+  function HideMonthList(m, index) {
+    changeMonth(m, index);
+    setShowMonthList(false);
+    const l = document.getElementsByClassName("month-value");
+    for (let i = 0; i < l.length; i++) {
+      l[i].style.backgroundColor = i === index ? "#1fe374" : "transparent";
+    }
+  }
   let dayList;
   dayList = date.map((d, index) => {
     let DATE =
@@ -299,28 +313,26 @@ export default function Event(props) {
     }
   }, [eventDate, props.data]);
 
-  /*try {
-      const h = document.getElementsByClassName("event")[0].clientHeight;
-      const nbr = parseInt((windowHeight - 204) / h);
-      setEventNbrShow(nbr);
-
-    } catch (e) {
-      console.log('err');
-    }
-    alert('hello')*/
-
   function changeBackYear(index) {
     const l = document.getElementsByClassName("year-value");
     for (let i = 0; i < l.length; i++) {
       l[i].style.backgroundColor =
-        i === index || i === yearSelectIndex ? "red" : "transparent";
+        i === yearSelectIndex
+          ? "#1fe374"
+          : i === index
+          ? "lightgreen"
+          : "transparent";
     }
   }
   function changeBackMonth(index) {
     const l = document.getElementsByClassName("month-value");
     for (let i = 0; i < l.length; i++) {
       l[i].style.backgroundColor =
-        i === index || i === monthSelectIndex ? "red" : "transparent";
+        i === monthSelectIndex
+          ? "#1fe374"
+          : i === index
+          ? "lightgreen"
+          : "transparent";
     }
   }
   function changeYear(y, i) {
@@ -345,11 +357,22 @@ export default function Event(props) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            //border : '1px solid red',
           }}
+          onMouseLeave={() => setShowYearList(false)}
         >
           <div
             className="container-month-year"
-            onClick={() => setShowYearList((prev) => !prev)}
+            onClick={() => {
+              setShowYearList((prev) => !prev);
+              try {
+                document.getElementsByClassName("year-value")[
+                  yearSelectIndex
+                ].style.backgroundColor = "#1fe374";
+              } catch (e) {
+                console.log("The year list not rendered yet !");
+              }
+            }}
           >
             <span id="year-selected">All year</span>
             <span class="material-icons">expand_more</span>
@@ -358,20 +381,27 @@ export default function Event(props) {
             style={{
               position: "absolute",
               listStyle: "none",
-              fontFamily: "'Kanit', sans-serif",
               padding: 0,
+              fontFamily: "'Kanit', sans-serif",
               display: showYearList ? "block" : "none",
               color: "black",
-              backgroundColor: "#f5f5f5",
+              backgroundColor: "#d6dae5",
               cursor: "pointer",
-              marginTop: "33px",
+              marginTop: "20px",
               maxHeight: "200px",
               borderRadius: "10px",
               zIndex: "1",
-              marginRight: "30px",
+              marginRight: 20,
               overflowX: "hidden",
               overflowY: "auto",
-              zIndex : '3'
+            }}
+            onMouseLeave={() => {
+              setShowYearList(false);
+              const l = document.getElementsByClassName("year-value");
+              for (let i = 0; i < l.length; i++) {
+                l[i].style.backgroundColor =
+                  i === yearSelectIndex ? "#1fe374" : "transparent";
+              }
             }}
           >
             {yearList}
@@ -383,10 +413,22 @@ export default function Event(props) {
             flexDirection: "column",
             alignItems: "center",
           }}
+          onMouseLeave={() => {
+            setShowMonthList(false);
+          }}
         >
           <div
             className="container-month-year"
-            onClick={() => setShowMonthList((prev) => !prev)}
+            onClick={() => {
+              setShowMonthList((prev) => !prev);
+              try {
+                document.getElementsByClassName("month-value")[
+                  monthSelectIndex
+                ].style.backgroundColor = "#1fe374";
+              } catch (e) {
+                console.log("The month list not rendered yet !");
+              }
+            }}
           >
             <span id="month-selected">All month</span>
             <span class="material-icons">expand_more</span>
@@ -396,6 +438,14 @@ export default function Event(props) {
               display: showMonthList ? "block" : "none",
             }}
             className="month-list"
+            onMouseLeave={() => {
+              setShowMonthList(false);
+              const l = document.getElementsByClassName("month-value");
+              for (let i = 0; i < l.length; i++) {
+                l[i].style.backgroundColor =
+                  i === monthSelectIndex ? "#1fe374" : "transparent";
+              }
+            }}
           >
             {months}
           </ul>
@@ -407,20 +457,11 @@ export default function Event(props) {
       <h1 className="how-many-ev-today">
         You have {eventNbreDate} {eventNbreDate > 1 ? "events" : "event"}
       </h1>
-      <div
-        style={{
-          padding: "20px",
-          boxSizing : 'border-box',
-          boxShadow: "0 0 1px 1px gray",
-          //backgroundColor : 'yellow',
-          borderStartStartRadius: "10px",
-          borderStartEndRadius: "10px",
-          width: "100%",
-          
-        }}
-      >
+      <div className="sub-content-event-page">
         <div className="event_day">{dayList}</div>
-        <span style={{ color: "gray" }}>
+        <span
+          style={{ fontFamily: "'Josefin Sans', sans-serif", color: "gray" }}
+        >
           You can see all details about the event, just click on it !
         </span>
         <div className="event-elem-style">

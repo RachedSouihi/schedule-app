@@ -9,7 +9,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Edu+SA+Beginner&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Assistant:wght@200&family=Geologica:wght@200&family=Poppins:wght@300&display=swap");
-  @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@500&display=swap");
 
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
@@ -46,25 +46,24 @@ body::-webkit-scrollbar {
   border-radius: 15px;
 }
 #year-selected {
-  font-family: 'Kanit', sans-serif;
+  font-family: "Kanit", sans-serif;
   font-size: 15px;
 }
 #month-selected {
-  font-family: 'Kanit', sans-serif;
-  font-size : 15px
+  font-family: "Kanit", sans-serif;
+  font-size: 15px;
 }
 .year-month {
   display: flex;
   width: fit-content;
-  
 }
 .month-list {
   position: absolute;
-  font-family: 'Kanit', sans-serif;
+  font-family: "Kanit", sans-serif;
   padding: 0;
   list-style: none;
-  background-color: #f5f5f5;
-  margin-top: 32px;
+  background-color: #d6dae5;
+  margin-top: 20px;
   color: black;
   border-radius: 10px;
   cursor: pointer;
@@ -80,9 +79,8 @@ body::-webkit-scrollbar {
 .year-value,
 .month-value {
   text-align: center;
-
-  text-decoration: underline;
-  padding: 10px;
+  text-decoration: underline solid #00ad6a;
+  padding: 5px;
   /*border: 1px solid red;*/
 }
 /*.header {
@@ -112,11 +110,19 @@ body::-webkit-scrollbar {
   width: fit-content;
 }
 .event {
-  font-family: "Libre Franklin", sans-serif;
   margin: auto;
 }
 .style-event-page {
   margin: auto;
+}
+.sub-content-event-page {
+  box-sizing: border-box;
+  padding : 20px;
+  box-shadow: 0 0 1px 1px gray;
+  /*backgroundColor : 'yellow';*/
+  border-start-start-radius: 10px;
+  border-start-end-radius: 10px;
+  width: 100%;
 }
 @media (min-width: 480px) {
   .event-elem-style {
@@ -148,7 +154,7 @@ body::-webkit-scrollbar {
     width: 500px;
   }
   .event-elem-style {
-    width: 370px;
+    width: 375px;
   }
   .event {
     margin-block: 8px;
@@ -161,7 +167,6 @@ body::-webkit-scrollbar {
   .date-string,
   .how-many-ev-today {
     margin-right: auto;
-    
   }
 }
 @media (min-width: 800px) {
@@ -180,7 +185,52 @@ body::-webkit-scrollbar {
   }
   .year-month {
     margin-inline: 200px;
-    
+  }
+}
+
+@media (max-width: 300px) {
+  .sub-content-event-page{
+    padding:15px 5px;
+  }
+}
+@media(min-width:370px){
+  .event{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+@media(min-width:240px){
+  .event h2{
+    font-size : 25px
+  }
+  .event div{
+    margin-top : 10px
+  }
+  .event div span{
+    font-size: 12px;
+    padding-inline-end: 15px;
+  }
+}
+@media(max-width:240px){
+  .event div span{
+    font-size: 12px;
+    padding-inline-end: 15px;
+  }
+  .event{
+    display: flex;
+    flex-direction : column;
+    align-items: start;
+  }
+  .event h2{
+    font-size: 20px;
+  }
+  .event div{
+    margin-top:5px ;
+  }
+  .event div span{
+    font-size:10px ;
   }
 }
 .hamburger:hover,
@@ -193,7 +243,6 @@ body::-webkit-scrollbar {
 #hamblogo {
   transition: 0.5s ease;
 }
-
 .nav {
   /*background: linear-gradient(45deg, #000850 0%, #000320 100%),
     radial-gradient(100% 225% at 100% 0%, #ff6928 0%, #000000 100%),
@@ -255,31 +304,24 @@ body::-webkit-scrollbar {
   transition: 0.5s ease-in-out;
 }
 .event {
-  /*margin-block: 10px;
-  margin-top: 20px;*/
-  cursor: pointer;
-  /*background-color: #7f53ac;*/
   background-image: linear-gradient(315deg, #00ad6a 0%, #1fe374 74%);
   background-color: #1fe374;
-  text-align: center;
   /*opacity: 0;
   transform: translateY(20px);
   transition: opacity 1s ease;
   display: flex;
   flex-direction: column;*/
   box-shadow: 0 0px 1px 1px lightgrey;
-  border-radius: 20px;
+  border-radius: 12.5px;
 }
 .event h2 {
-  font-size: 30px;
   color: #ffffff;
   font-family: "Libre Franklin", sans-serif;
-}
-.event h2 {
   margin: 0;
 }
 .event div span {
-  font-family: "Edu SA Beginner", cursive;
+  /*font-family: "Edu SA Beginner", cursive;*/
+  font-family: "Libre Franklin", sans-serif;
 }
 .event_day {
   display: flex;
@@ -291,10 +333,10 @@ body::-webkit-scrollbar {
   height: 5px;
 }
 .event_day::-webkit-scrollbar-thumb {
-  background-color: #0f0a3c;
+  background-color: darkslategrey;
 }
 .day {
-  font-family:Helvetica;
+  font-family: Helvetica;
   padding: 3px 20px;
   white-space: nowrap;
   margin-inline: 5px;
@@ -316,9 +358,9 @@ border-radius: 8px;
 
 }*/
 
-.event span {
+/*.event span {
   margin-inline: 30px;
-}
+}*/
 .event-desc-style {
   /*align-items: start;*/
   position: absolute;
