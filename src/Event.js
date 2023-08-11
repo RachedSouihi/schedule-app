@@ -1,5 +1,5 @@
 import React from "react";
-import { nanoid } from "nanoid";
+
 import "./index.css";
 //import "./index.css";
 
@@ -7,7 +7,7 @@ export default function Event(props) {
   const [showEventDesc, setShowEventDesc] = React.useState(false);
   const [eventPos, setEventPos] = React.useState(0);
   const [eventNbrShow, setEventNbrShow] = React.useState(0);
-  const [datestring, setDateString] = React.useState("");
+  const [dateString, setDateString] = React.useState("");
   const [yearSelectIndex, setYearSelectIndex] = React.useState(0);
   const [monthSelectIndex, setMonthSelectIndex] = React.useState(0);
   const [showYearList, setShowYearList] = React.useState(false);
@@ -21,6 +21,10 @@ export default function Event(props) {
   const [subEventElem, setSubEventElem] = React.useState([]);
   const [eventDate, setEventDate] = React.useState(0);
   const [eventNbreDate, setEventNbreDate] = React.useState(0);
+  const [windowWidthHeight, setWindowWidthHeight] = React.useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
   const daysOfWeek = [
     "Sunday",
     "Monday",
@@ -30,9 +34,23 @@ export default function Event(props) {
     "Friday",
     "Saturday",
   ];
-  const [windowWidthHeight, setWindowWidthHeight] = React.useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
+  React.useEffect(() => {
+    setSubEventElem(eventElem.slice(eventPos, eventPos + eventNbrShow));
+  }, [eventNbrShow, eventPos, eventElem]);
+  React.useEffect(() => {
+    try {
+      const ht =
+        document.getElementsByClassName("event-elem-style")[0].offsetHeight;
+      const he = document.getElementsByClassName("event")[0].offsetHeight;
+      //console.log(he)
+      let nbrEvent = parseInt(ht / he);
+      while (he * nbrEvent + 8 * (nbrEvent - 1) > ht) {
+        nbrEvent -= 1;
+      }
+      setEventNbrShow(nbrEvent);
+    } catch (e) {
+      console.log("Error found!");
+    }
   });
   React.useEffect(() => {
     const getWidthHeight = () => {
@@ -55,9 +73,10 @@ export default function Event(props) {
     boxShadow: "1px 1px 2px 2px lightgray",
   };
   React.useEffect(() => {
-    document.getElementsByClassName(
-      "event-elem-style"
-    )[0].style.height = `calc(${windowWidthHeight.height}px - 200px)`;
+    document.getElementsByClassName("event-elem-style")[0].style.height =
+      windowWidthHeight.width < 800
+        ? `calc(${windowWidthHeight.height}px - 245px)`
+        : `calc(${windowWidthHeight.height}px - 335px)`;
     /*document.getElementsByClassName(
       "event-elem-style"
     )[0].style.width = `calc(${windowWidthHeight.width}px -300px)`;*/
@@ -106,7 +125,8 @@ export default function Event(props) {
     newDate.sort(props.compareDate);
     setDate(newDate);
     setEventDateIndex(0);
-    setEventDate(newDate !== [] ? newDate[0] : 1);
+    //setSubEventElem([])
+    setEventDate(newDate[0] ? newDate[0] : 1);
   }, [monthSelected, yearSelected, props.data]);
   let year = props.data.map((e) => new Date(e.date).getFullYear());
   year = [...new Set(year)];
@@ -126,19 +146,19 @@ export default function Event(props) {
   });
   const Change = (d, index) => {
     setEventDate(d);
+    setEventPos(0);
     setEventDateIndex(index);
+    setShowEventDesc(false);
   };
+  //function hideEventDesc() {}
   const showEventDescription = (e) => {
-    setShowEventDesc(true);
-
+    setShowEventDesc((prev) => !prev);
     const eDesc = (
-      <div className={`event-desc-style ${"showED"}`}>
+      <div className={`event-desc-style`}>
         <span
           class="material-icons"
           style={clear_event_desc}
-          onClick={() => {
-            setShowEventDesc(false);
-          }}
+          onClick={() => setShowEventDesc(false)}
         >
           clear
         </span>
@@ -165,7 +185,7 @@ export default function Event(props) {
                 fontSize: "14px",
               }}
             >
-              {e.date}
+              {dateString}
             </div>
           </div>
           <div>
@@ -281,7 +301,6 @@ export default function Event(props) {
       </span>
     );
   });
-  // alert(eventDate);
   React.useEffect(() => {
     try {
       let newEventElem = props.data.map((event) => {
@@ -291,9 +310,14 @@ export default function Event(props) {
         const c3 = convDateEvent.getFullYear() === eventDate.getFullYear();
         //alert('bloc executed')
         if (c1 && c2 && c3) {
+          //console.log('yes')
           setEventNbreDate((prev) => prev + 1);
           return (
-            <div className="event" onClick={() => showEventDescription(event)}>
+            <div
+              className="event"
+              onClick={() => showEventDescription(event)}
+              style={{}}
+            >
               <h2>{event.title}</h2>
               <div>
                 <span>{event.start}</span>
@@ -344,11 +368,8 @@ export default function Event(props) {
     setMonthSelected(m !== "All month" ? m : "");
     setMonthSelectIndex(i);
     document.getElementById("month-selected").innerHTML = m;
-
-    /*setDate(newDate);
-    setEventDate(newDate[0]);*/
   }
-  // alert(eventNbreDate)
+
   return (
     <div className="style-event-page">
       <div className="year-month">
@@ -378,23 +399,8 @@ export default function Event(props) {
             <span class="material-icons">expand_more</span>
           </div>
           <ul
-            style={{
-              position: "absolute",
-              listStyle: "none",
-              padding: 0,
-              fontFamily: "'Kanit', sans-serif",
-              display: showYearList ? "block" : "none",
-              color: "black",
-              backgroundColor: "#d6dae5",
-              cursor: "pointer",
-              marginTop: "20px",
-              maxHeight: "200px",
-              borderRadius: "10px",
-              zIndex: "1",
-              marginRight: 20,
-              overflowX: "hidden",
-              overflowY: "auto",
-            }}
+            style={{ display: showYearList ? "block" : "none" }}
+            className="year-list"
             onMouseLeave={() => {
               setShowYearList(false);
               const l = document.getElementsByClassName("year-value");
@@ -452,25 +458,59 @@ export default function Event(props) {
         </div>
       </div>
       <div className="date-string">
-        {eventNbreDate ? datestring : "No date found"}
+        {eventNbreDate ? dateString : "No date found"}
       </div>
       <h1 className="how-many-ev-today">
         You have {eventNbreDate} {eventNbreDate > 1 ? "events" : "event"}
       </h1>
       <div className="sub-content-event-page">
         <div className="event_day">{dayList}</div>
-        <span
-          style={{ fontFamily: "'Josefin Sans', sans-serif", color: "gray" }}
+        <div
+          style={{
+            fontFamily: "'Josefin Sans', sans-serif",
+            color: "gray",
+            marginTop: "15px",
+            textAlign: windowWidthHeight.width >= 800 && "center",
+          }}
         >
           You can see all details about the event, just click on it !
-        </span>
+        </div>
         <div className="event-elem-style">
-          {eventNbreDate ? (
-            eventElem
+          {!eventNbreDate ? (
+            <h1 style={{textAlign : 'center'}}>No event found!</h1>
+          ) : subEventElem[0] ? (
+            subEventElem
           ) : (
-            <h2>Sorry, any event found in that date!</h2>
+            eventElem
           )}
         </div>
+      </div>
+      <div
+        className="next-back"
+        style={{
+          display:
+            !eventNbreDate || eventNbreDate <= eventNbrShow ? "none" : "flex",
+        }}
+      >
+        <button
+          style={{
+            backgroundColor: eventPos - eventNbrShow >= 0 ? "#1fe374" : "gray",
+          }}
+          disabled={eventPos - eventNbrShow >= 0 ? 0 : 1}
+          onClick={() => setEventPos((prevPos) => prevPos - eventNbrShow)}
+        >
+          Back
+        </button>
+        <button
+          disabled={eventPos + eventNbrShow < eventNbreDate ? 0 : 1}
+          style={{
+            backgroundColor:
+              eventPos + eventNbrShow < eventNbreDate ? "#1fe374" : "gray",
+          }}
+          onClick={() => setEventPos((prevPos) => prevPos + eventNbrShow)}
+        >
+          Next
+        </button>
       </div>
       {showEventDesc ? eventDesc : <></>}
     </div>

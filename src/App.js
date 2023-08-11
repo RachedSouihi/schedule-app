@@ -1,5 +1,4 @@
 import React from "react";
-//import HambList from "./HambList";
 import Event from "./Event";
 //import {nanoid} from 'nanoid'
 //import axios from 'axios'
@@ -79,8 +78,7 @@ export default function App() {
       {prevElem.type}
     </li>
   ));
-  
-*/
+  */
 
   return <Event data={data} compareDate={compareDate} />;
 }
