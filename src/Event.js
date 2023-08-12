@@ -42,12 +42,15 @@ export default function Event(props) {
       const ht =
         document.getElementsByClassName("event-elem-style")[0].offsetHeight;
       const he = document.getElementsByClassName("event")[0].offsetHeight;
-      //console.log(he)
-      let nbrEvent = parseInt(ht / he);
+      let nbrEvent = ht / he;
+      console.log(nbrEvent)
+      if(nbrEvent < parseInt(nbrEvent) + 0.15) nbrEvent=parseInt(nbrEvent)-1
+      else nbrEvent = parseInt(nbrEvent)
+
       while (he * nbrEvent + 8 * (nbrEvent - 1) > ht) {
         nbrEvent -= 1;
       }
-      setEventNbrShow(nbrEvent);
+      setEventNbrShow(nbrEvent ? nbrEvent : 1);
     } catch (e) {
       console.log("Error found!");
     }
@@ -85,20 +88,6 @@ export default function Event(props) {
     setEventNbreDate(0);
   }, [eventDate]);
   React.useEffect(() => {
-    try {
-      const newDateString =
-        daysOfWeek[eventDate.getDay()] +
-        ", " +
-        eventDate.getDate() +
-        " " +
-        eventDate.toLocaleString("default", { month: "long" });
-      //alert(eventDate.toLocaleString("default", { day: "long" }));
-      setDateString(newDateString);
-    } catch (e) {
-      console.log(e);
-    }
-  }, [eventDate]);
-  React.useEffect(() => {
     let newDate = [];
     for (let i = 0; i < props.data.length; i++) {
       const d = new Date(props.data[i].date);
@@ -127,6 +116,7 @@ export default function Event(props) {
     setEventDateIndex(0);
     //setSubEventElem([])
     setEventDate(newDate[0] ? newDate[0] : 1);
+    setShowEventDesc(false)
   }, [monthSelected, yearSelected, props.data]);
   let year = props.data.map((e) => new Date(e.date).getFullYear());
   year = [...new Set(year)];
@@ -144,15 +134,33 @@ export default function Event(props) {
       console.log(e);
     }
   });
+  React.useEffect(() => {
+    try {
+      const newDateString = getDateString()
+      setDateString(newDateString);
+    } catch (err) {
+      console.log(err)
+    }
+  }, [eventDate])
   const Change = (d, index) => {
     setEventDate(d);
     setEventPos(0);
     setEventDateIndex(index);
     setShowEventDesc(false);
+
   };
-  //function hideEventDesc() {}
+  function getDateString() {
+    const newDateString =
+      daysOfWeek[eventDate.getDay()] +
+      ", " +
+      eventDate.getDate() +
+      " " +
+      eventDate.toLocaleString("default", { month: "long" });
+    return newDateString
+
+  }
   const showEventDescription = (e) => {
-    setShowEventDesc((prev) => !prev);
+    setShowEventDesc(true);
     const eDesc = (
       <div className={`event-desc-style`}>
         <span
@@ -179,13 +187,10 @@ export default function Event(props) {
               <small>Date</small>
             </div>
             <div
-              style={{
-                fontFamily: "'Comfortaa', cursive",
-                fontWeight: "400",
-                fontSize: "14px",
-              }}
+              
+              className="date-str-event-desc"
             >
-              {dateString}
+              {getDateString()}
             </div>
           </div>
           <div>
@@ -344,8 +349,8 @@ export default function Event(props) {
         i === yearSelectIndex
           ? "#1fe374"
           : i === index
-          ? "lightgreen"
-          : "transparent";
+            ? "lightgreen"
+            : "transparent";
     }
   }
   function changeBackMonth(index) {
@@ -355,8 +360,8 @@ export default function Event(props) {
         i === monthSelectIndex
           ? "#1fe374"
           : i === index
-          ? "lightgreen"
-          : "transparent";
+            ? "lightgreen"
+            : "transparent";
     }
   }
   function changeYear(y, i) {
@@ -477,7 +482,7 @@ export default function Event(props) {
         </div>
         <div className="event-elem-style">
           {!eventNbreDate ? (
-            <h1 style={{textAlign : 'center'}}>No event found!</h1>
+            <h1 style={{ textAlign: 'center' }}>No event found!</h1>
           ) : subEventElem[0] ? (
             subEventElem
           ) : (
@@ -489,12 +494,12 @@ export default function Event(props) {
         className="next-back"
         style={{
           display:
-            !eventNbreDate || eventNbreDate <= eventNbrShow ? "none" : "flex",
+            !eventNbreDate || eventNbreDate === 1 || eventNbreDate <= eventNbrShow ? "none" : "flex",
         }}
       >
         <button
           style={{
-            backgroundColor: eventPos - eventNbrShow >= 0 ? "#1fe374" : "gray",
+            background: eventPos - eventNbrShow >= 0 ? "linear-gradient(to bottom, #0078d7, #0063b1)" : "gray",
           }}
           disabled={eventPos - eventNbrShow >= 0 ? 0 : 1}
           onClick={() => setEventPos((prevPos) => prevPos - eventNbrShow)}
@@ -504,8 +509,8 @@ export default function Event(props) {
         <button
           disabled={eventPos + eventNbrShow < eventNbreDate ? 0 : 1}
           style={{
-            backgroundColor:
-              eventPos + eventNbrShow < eventNbreDate ? "#1fe374" : "gray",
+            background:
+              eventPos + eventNbrShow < eventNbreDate ? "linear-gradient(to bottom, #0078d7, #0063b1)" : "gray",
           }}
           onClick={() => setEventPos((prevPos) => prevPos + eventNbrShow)}
         >

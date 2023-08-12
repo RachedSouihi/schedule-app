@@ -16,6 +16,9 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@1,800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Edu+SA+Beginner:wght@700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz@10..48&display=swap');
+
+
 html,
 body {
   width: 100%;
@@ -24,7 +27,9 @@ body {
   margin: 0;
   padding: 0;
   /* background: url("../public/scheduleimg.jpg");*/
-  background-color: #eafaf1;
+  /*background: linear-gradient(to right, #e0eafc, #cfdef3);*/
+  background-color: white;
+
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -33,29 +38,123 @@ body {
   overflow: auto;
 }
 
+/*.welcome-screnn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0; 
+}
+
+.video-container {
+  max-width: 80%;
+}
+
+video {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-height: 100%;
+}*/
+/*.welcome-screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.welcome-title {
+  color: white;
+  position: absolute;
+  top : 0;
+  margin-top :50px ;
+  color: #000000;
+  font-size: 3rem;
+  text-align: center;
+}*/
+.welcome-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #ffff;
+  overflow: hidden;
+}
+
+.welcome-title {
+  position: absolute;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  top: 0;
+  margin-top: 50px;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards, slideUp 1s forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+
+    transform: translateY(20px);
+  }
+
+  to {
+
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+
+video {
+  display: block;
+  margin: 0 auto;
+  max-width: 80%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+
+
+
+
 body::-webkit-scrollbar {
   width: 0;
 }
-.dat_list {
-}
+
 .container-month-year {
   display: flex;
   align-items: center;
 
   border-radius: 15px;
 }
+
 #year-selected {
   font-family: "Kanit", sans-serif;
   font-size: 15px;
 }
+
 #month-selected {
   font-family: "Kanit", sans-serif;
   font-size: 15px;
 }
+
 .year-month {
   display: flex;
   width: fit-content;
 }
+
 .year-list {
   position: absolute;
   list-style: none;
@@ -72,6 +171,7 @@ body::-webkit-scrollbar {
   overflow-x: hidden;
   overflow-y: auto;
 }
+
 .month-list {
   position: absolute;
   font-family: "Kanit", sans-serif;
@@ -86,15 +186,19 @@ body::-webkit-scrollbar {
   overflow-y: auto;
   overflow-x: hidden;
 }
+
 .month-list::-webkit-scrollbar {
   width: 3px;
 }
+
 .month-list::-webkit-scrollbar-thumb {
   background-color: darkslategrey;
 }
+
 .year-list::-webkit-scrollbar {
   width: 3px;
 }
+
 .year-list::-webkit-scrollbar-thumb {
   background-color: darkslategrey;
 }
@@ -106,6 +210,7 @@ body::-webkit-scrollbar {
   padding: 5px;
   /*border: 1px solid red;*/
 }
+
 /*.header {
   background-color: #333;
   color: #fff;
@@ -120,6 +225,7 @@ body::-webkit-scrollbar {
   width: fit-content;
   margin: 0;
 }
+
 .hamburger {
   margin: 15px 18px;
   z-index: 2;
@@ -132,9 +238,11 @@ body::-webkit-scrollbar {
 .date-string {
   width: fit-content;
 }
+
 .event {
   margin: auto;
 }
+
 .style-event-page {
   margin: auto;
 }
@@ -148,13 +256,9 @@ body::-webkit-scrollbar {
   border-start-end-radius: 10px;
   width: 100%;
 }
-.event-elem-style::-webkit-scrollbar {
-  width: 5px;
-}
-.event-elem-style::-webkit-scrollbar-thumb {
-  background-color: darkslategrey;
-}
+
 @media (min-width: 1000px) {
+
   .container-month-year,
   .event,
   .event_day {
@@ -167,24 +271,29 @@ body::-webkit-scrollbar {
     margin: auto;
   }
 }
+
 @media (max-width: 800px) {
   .style-event-page {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
+
   .event-elem-style {
     margin-top: 15px;
     max-width: 100%;
-    overflow: scroll;
+
   }
+
   .container-month-year {
     margin-top: 3px;
   }
+
   .event {
     margin-block: 8px;
     padding: 13px;
   }
+
   .year-list,
   .month-list {
     margin: 25px 25px 0 0;
@@ -195,56 +304,72 @@ body::-webkit-scrollbar {
   .style-event-page {
     width: 500px;
   }
+
   .event-elem-style {
     width: 375px;
   }
+
   .event {
     margin-block: 8px;
     padding: 13px;
   }
-  .next-back{
+
+  .next-back {
     margin-bottom: 60px;
   }
 }
 
 @media (max-width: 500px) {
+
   .year-month,
   .date-string,
   .how-many-ev-today {
     margin-right: auto;
     padding-inline-start: 17px;
   }
+
   .date-string {
     margin-block: 5px;
   }
-  .next-back{
+
+  .next-back {
     margin-bottom: 50px;
   }
 }
+
 @media (min-width: 800px) {
   .style-event-page {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 800px;
-
     margin: 5% auto;
   }
+
   .event-elem-style {
     margin-top: 15px;
-    max-width: 100%;
-    overflow: scroll;
   }
+
+  .event {
+    display: flex;
+    flex-direction: column;
+
+  }
+
   .year-month {
     margin-inline: 200px;
   }
+
   .year-list,
   .month-list {
     margin: 20px 25px 0 0;
   }
-  .next-back{
+
+  .next-back {
     margin-bottom: 90px;
   }
+
+  .event-desc-style {}
 }
 
 @media (max-width: 300px) {
@@ -252,6 +377,7 @@ body::-webkit-scrollbar {
     padding: 15px 5px;
   }
 }
+
 @media (min-width: 370px) {
   .event {
     display: flex;
@@ -260,58 +386,72 @@ body::-webkit-scrollbar {
     text-align: center;
   }
 }
-@media (min-width: 240px) {
+
+@media (min-width: 300px) {
   .event h2 {
     font-size: 25px;
   }
+
   .event div {
     margin-top: 10px;
   }
+
   .event div span {
     font-size: 12px;
     padding-inline-end: 15px;
   }
 }
-@media (max-width: 240px) {
+
+@media (max-width: 300px) {
   .event div span {
     font-size: 12px;
     padding-inline-end: 15px;
   }
+
   .event {
     display: flex;
     flex-direction: column;
     align-items: start;
   }
+
   .event h2 {
     font-size: 20px;
   }
+
   .event div {
     margin-top: 5px;
   }
+
   .event div span {
     font-size: 10px;
   }
-  .next-back{
+
+  .next-back {
     margin-bottom: 22px;
   }
 }
-@media(min-width:225px){
-  .next-back button{
-    margin-inline : 15px;
+
+@media(min-width:225px) {
+  .next-back button {
+    margin-inline: 15px;
     padding: 5px 20px;
     font-size: 15px;
 
   }
 }
-@media(max-width:225px){
-  .next-back{
+
+@media(max-width:225px) {
+  .next-back {
     margin-bottom: 0;
   }
-  .next-back button{
+
+  .next-back button {
     font-size: 15px;
-    margin-inline : 5px
+    margin-inline: 5px
   }
+
 }
+
 .hamburger:hover,
 .event:hover,
 .day:hover {
@@ -319,45 +459,7 @@ body::-webkit-scrollbar {
   transform: scale(0.97);
   transition: 0.2s linear;
 }
-#hamblogo {
-  transition: 0.5s ease;
-}
-.nav {
-  /*background: linear-gradient(45deg, #000850 0%, #000320 100%),
-    radial-gradient(100% 225% at 100% 0%, #ff6928 0%, #000000 100%),
-    linear-gradient(225deg, #ff7a00 0%, #000000 100%),
-    linear-gradient(
-      135deg,
-      #cdffeb 10%,
-      #cdffeb 35%,
-      #009f9d 35%,
-      #009f9d 60%,
-      #07456f 60%,
-      #07456f 67%,
-      #0f0a3c 67%,
-      #0f0a3c 100%
-    );
-  background-blend-mode: screen, overlay, hard-light, normal;*/
-  background: linear-gradient(
-    288deg,
-    #ffb6b9 0%,
-    #ffb6b9 35%,
-    #fae3d9 calc(35% + 1px),
-    #fae3d9 45%,
-    #bbded6 calc(45% + 1px),
-    #bbded6 65%,
-    #61c0bf calc(65% + 1px),
-    #61c0bf 100%
-  );
-  box-shadow: 0.5px 0.5px 2px 2px gray;
-  width: 0;
-  position: absolute;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-  z-index: 1;
-  transition: 0.5s;
-}
+
 
 .nav ul {
   list-style: none;
@@ -365,43 +467,30 @@ body::-webkit-scrollbar {
   margin: 0;
 }
 
-.nav li {
-  text-align: center;
-  color: #333;
-  cursor: pointer;
-  padding-block: 10px;
-  font-family: "Pacifico", cursive;
-  margin-block: 20px;
-  font-size: 35px;
-  border-radius: 25px;
-}
-.nav li:hover {
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.rotateLogo {
-  transform: rotate(540deg);
-  transition: 0.5s ease-in-out;
-}
 .event {
-  background-image: linear-gradient(315deg, #00ad6a 0%, #1fe374 74%);
-  background-color: #1fe374;
+  /*background: linear-gradient(to bottom, #0078d7, #0063b1);*/
+  background-color: #ccc;
+
   /*opacity: 0;
   transform: translateY(20px);
   transition: opacity 1s ease;
   display: flex;
   flex-direction: column;*/
-  box-shadow: 0 0px 1px 1px lightgrey;
+  box-shadow: 0 0 3.5px 1px lightgrey;
   border-radius: 12.5px;
 }
+
 .event h2 {
-  color: #ffffff;
+  color: #000000;
   font-family: "Libre Franklin", sans-serif;
   margin: 0;
 }
+
 .event div span {
   /*font-family: "Edu SA Beginner", cursive;*/
   font-family: "Libre Franklin", sans-serif;
 }
+
 .event_day {
   display: flex;
   align-items: center;
@@ -410,12 +499,15 @@ body::-webkit-scrollbar {
 
   overflow: auto;
 }
+
 .event_day::-webkit-scrollbar {
   height: 5px;
 }
+
 .event_day::-webkit-scrollbar-thumb {
   background-color: darkslategrey;
 }
+
 .day {
   font-family: Helvetica;
   padding: 3px 20px;
@@ -423,9 +515,11 @@ body::-webkit-scrollbar {
   margin-inline: 5px;
   border-radius: 20px;
 }
+
 h3 {
   color: darkred;
 }
+
 /*.show-div {
 opacity: 0;
 transform: translateY(20px);
@@ -445,25 +539,30 @@ border-radius: 8px;
   position: absolute;
   z-index: 0;
   bottom: 0;
+  bottom: 0;
   border-radius: 20px 20px 0 0;
   padding: 20px;
   height: fit-content;
   background-color: #fff;
-
+  animation: showEventDesc 0.5s ease-in-out;
   box-shadow: 0px 0px 1px 1px lightgray;
 }
+
 @keyframes showEventDesc {
   0% {
     bottom: -100%;
   }
+
   100% {
     bottom: 0;
   }
 }
+
 @keyframes hideEventDesc {
   0% {
     bottom: 0;
   }
+
   100% {
     bottom: -100%;
   }
@@ -480,20 +579,30 @@ border-radius: 8px;
   display: flex;
   align-items: center;
 }
+
 .event_desc small {
   color: gray;
 }
+
 .next-back {
   position: absolute;
   bottom: 0;
   align-items: center;
+
 }
+
 .next-back button {
 
   font-family: "Geologica", sans-serif;
-  color: #000;
+  color: #ffffff;
   font-weight: 600;
   border-radius: 8px;
 
   border: none;
+}
+
+.date-str-event-desc {
+  font-family: 'Comfortaa', cursive;
+  font-weight: 400;
+  
 }
