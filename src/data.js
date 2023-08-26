@@ -88,12 +88,12 @@ const data = [
     description: "Learn about the latest trends in web design.",
   },
   {
-    title: "Workshop, Web development",
+    title: "Web development workshop",
     date: "2024-1-2",
     start: "09:00PM",
     end: "12:00PM",
     location: "Ted university",
-    description: "What's front end and back end development ?",
+    description: "What's frontend and backend development ?",
   },
   {
     title: "Doctor's Appointment",

@@ -2,7 +2,7 @@ import React from "react";
 import vid from "../assets/welcome.mp4";
 
 export default function Welcome() {
-    const title = "Schedule app";
+    const title = "Calendar app";
     const [displayTitle, setDisplayTitle] = React.useState('');
     
     React.useEffect(() => {

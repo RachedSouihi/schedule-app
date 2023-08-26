@@ -43,9 +43,9 @@ export default function Event(props) {
         document.getElementsByClassName("event-elem-style")[0].offsetHeight;
       const he = document.getElementsByClassName("event")[0].offsetHeight;
       let nbrEvent = ht / he;
-      console.log(nbrEvent)
-      if(nbrEvent < parseInt(nbrEvent) + 0.15) nbrEvent=parseInt(nbrEvent)-1
-      else nbrEvent = parseInt(nbrEvent)
+      if (nbrEvent < parseInt(nbrEvent) + 0.15)
+        nbrEvent = parseInt(nbrEvent) - 1;
+      else nbrEvent = parseInt(nbrEvent);
 
       while (he * nbrEvent + 8 * (nbrEvent - 1) > ht) {
         nbrEvent -= 1;
@@ -116,7 +116,7 @@ export default function Event(props) {
     setEventDateIndex(0);
     //setSubEventElem([])
     setEventDate(newDate[0] ? newDate[0] : 1);
-    setShowEventDesc(false)
+    setShowEventDesc(false);
   }, [monthSelected, yearSelected, props.data]);
   let year = props.data.map((e) => new Date(e.date).getFullYear());
   year = [...new Set(year)];
@@ -136,18 +136,17 @@ export default function Event(props) {
   });
   React.useEffect(() => {
     try {
-      const newDateString = getDateString()
+      const newDateString = getDateString();
       setDateString(newDateString);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }, [eventDate])
+  }, [eventDate]);
   const Change = (d, index) => {
     setEventDate(d);
     setEventPos(0);
     setEventDateIndex(index);
     setShowEventDesc(false);
-
   };
   function getDateString() {
     const newDateString =
@@ -156,8 +155,7 @@ export default function Event(props) {
       eventDate.getDate() +
       " " +
       eventDate.toLocaleString("default", { month: "long" });
-    return newDateString
-
+    return newDateString;
   }
   const showEventDescription = (e) => {
     setShowEventDesc(true);
@@ -186,12 +184,7 @@ export default function Event(props) {
               <span class="material-icons">calendar_month</span>
               <small>Date</small>
             </div>
-            <div
-              
-              className="date-str-event-desc"
-            >
-              {getDateString()}
-            </div>
+            <div className="date-str-event-desc">{getDateString()}</div>
           </div>
           <div>
             <div style={{ marginBottom: "5px" }}>
@@ -259,7 +252,10 @@ export default function Event(props) {
     setShowYearList(false);
     const l = document.getElementsByClassName("year-value");
     for (let i = 0; i < l.length; i++) {
-      l[i].style.backgroundColor = i === index ? "#1fe374" : "transparent";
+      l[i].style.background =
+        i === index
+          ? "radial-gradient( circle farthest-corner at 22.4% 21.7%, rgba(4,189,228,1) 0%, rgba(2,83,185,1) 100.2% )"
+          : "transparent";
     }
   }
   //alert(yearSelected)
@@ -292,7 +288,10 @@ export default function Event(props) {
     setShowMonthList(false);
     const l = document.getElementsByClassName("month-value");
     for (let i = 0; i < l.length; i++) {
-      l[i].style.backgroundColor = i === index ? "#1fe374" : "transparent";
+      l[i].style.backgroundColor =
+        i === index
+          ? "radial-gradient( circle farthest-corner at 22.4% 21.7%, rgba(4,189,228,1) 0%, rgba(2,83,185,1) 100.2% )"
+          : "transparent";
     }
   }
   let dayList;
@@ -345,22 +344,22 @@ export default function Event(props) {
   function changeBackYear(index) {
     const l = document.getElementsByClassName("year-value");
     for (let i = 0; i < l.length; i++) {
-      l[i].style.backgroundColor =
+      l[i].style.background =
         i === yearSelectIndex
-          ? "#1fe374"
+          ? "radial-gradient( circle farthest-corner at 22.4% 21.7%, rgba(4,189,228,1) 0%, rgba(2,83,185,1) 100.2% )"
           : i === index
-            ? "lightgreen"
+            ? "lightblue"
             : "transparent";
     }
   }
   function changeBackMonth(index) {
     const l = document.getElementsByClassName("month-value");
     for (let i = 0; i < l.length; i++) {
-      l[i].style.backgroundColor =
+      l[i].style.background =
         i === monthSelectIndex
-          ? "#1fe374"
+          ? "radial-gradient( circle farthest-corner at 22.4% 21.7%, rgba(4,189,228,1) 0%, rgba(2,83,185,1) 100.2% )"
           : i === index
-            ? "lightgreen"
+            ? "lightblue"
             : "transparent";
     }
   }
@@ -374,7 +373,21 @@ export default function Event(props) {
     setMonthSelectIndex(i);
     document.getElementById("month-selected").innerHTML = m;
   }
+  
+  React.useEffect(() => {
+    const b = document.getElementsByClassName('event')
+    let index = 0
 
+    function showNexEvent() {
+      if (index < b.length) {
+        b[index].style.opacity = 1
+        index++
+      } else {
+        clearInterval(interval)
+      }
+    }
+    const interval = setInterval(showNexEvent, 200)
+  })
   return (
     <div className="style-event-page">
       <div className="year-month">
@@ -394,7 +407,8 @@ export default function Event(props) {
               try {
                 document.getElementsByClassName("year-value")[
                   yearSelectIndex
-                ].style.backgroundColor = "#1fe374";
+                ].style.background = "radial-gradient( circle farthest-corner at 22.4% 21.7%, rgba(4,189,228,1) 0%, rgba(2,83,185,1) 100.2% )"
+
               } catch (e) {
                 console.log("The year list not rendered yet !");
               }
@@ -411,7 +425,9 @@ export default function Event(props) {
               const l = document.getElementsByClassName("year-value");
               for (let i = 0; i < l.length; i++) {
                 l[i].style.backgroundColor =
-                  i === yearSelectIndex ? "#1fe374" : "transparent";
+                  i === yearSelectIndex
+                    ? "radial-gradient( circle farthest-corner at 22.4% 21.7%, rgba(4,189,228,1) 0%, rgba(2,83,185,1) 100.2% )"
+                    : "transparent";
               }
             }}
           >
@@ -435,7 +451,8 @@ export default function Event(props) {
               try {
                 document.getElementsByClassName("month-value")[
                   monthSelectIndex
-                ].style.backgroundColor = "#1fe374";
+                ].style.background = "radial-gradient( circle farthest-corner at 22.4% 21.7%, rgba(4,189,228,1) 0%, rgba(2,83,185,1) 100.2% )"
+
               } catch (e) {
                 console.log("The month list not rendered yet !");
               }
@@ -453,8 +470,9 @@ export default function Event(props) {
               setShowMonthList(false);
               const l = document.getElementsByClassName("month-value");
               for (let i = 0; i < l.length; i++) {
-                l[i].style.backgroundColor =
-                  i === monthSelectIndex ? "#1fe374" : "transparent";
+                l[i].style.background =
+                  i === monthSelectIndex ? "radial-gradient( circle farthest-corner at 22.4% 21.7%, rgba(4,189,228,1) 0%, rgba(2,83,185,1) 100.2% )"
+                    : "transparent";
               }
             }}
           >
@@ -482,7 +500,7 @@ export default function Event(props) {
         </div>
         <div className="event-elem-style">
           {!eventNbreDate ? (
-            <h1 style={{ textAlign: 'center' }}>No event found!</h1>
+            <h1 style={{ textAlign: "center" }}>No event found!</h1>
           ) : subEventElem[0] ? (
             subEventElem
           ) : (
@@ -494,12 +512,19 @@ export default function Event(props) {
         className="next-back"
         style={{
           display:
-            !eventNbreDate || eventNbreDate === 1 || eventNbreDate <= eventNbrShow ? "none" : "flex",
+            !eventNbreDate ||
+              eventNbreDate === 1 ||
+              eventNbreDate <= eventNbrShow
+              ? "none"
+              : "flex",
         }}
       >
         <button
           style={{
-            background: eventPos - eventNbrShow >= 0 ? "linear-gradient(to bottom, #0078d7, #0063b1)" : "gray",
+            background:
+              eventPos - eventNbrShow >= 0
+                ? "linear-gradient(to bottom, #0078d7, #0063b1)"
+                : "gray",
           }}
           disabled={eventPos - eventNbrShow >= 0 ? 0 : 1}
           onClick={() => setEventPos((prevPos) => prevPos - eventNbrShow)}
@@ -510,7 +535,9 @@ export default function Event(props) {
           disabled={eventPos + eventNbrShow < eventNbreDate ? 0 : 1}
           style={{
             background:
-              eventPos + eventNbrShow < eventNbreDate ? "linear-gradient(to bottom, #0078d7, #0063b1)" : "gray",
+              eventPos + eventNbrShow < eventNbreDate
+                ? "linear-gradient(to bottom, #0078d7, #0063b1)"
+                : "gray",
           }}
           onClick={() => setEventPos((prevPos) => prevPos + eventNbrShow)}
         >

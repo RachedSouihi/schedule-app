@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center
+        }
+
+        .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            height: 50px;
+            margin-block: 5px;
+            border: 1px solid black;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="list">
+        <div class="box">Software engineer</div>
+        <div class="box">fullstack engineer</div>
+        <div class="box">fullstack developer</div>
+        <div class="box">frontend developer</div>
+        <div class="box">backend developer</div>
+    </div>
+    <script>
+        const boxes = document.querySelectorAll('.box')
+        let index = 0
+        function showNextBox() {
+            if (index < boxes.length) {
+                boxes[index].style.opacity = "1"
+                index++
+            }else {
+                clearInterval(interval)
+            }
+        }
+        const interval = setInterval(showNextBox, 300)
+    </script>
+</body>
+
+</html>
